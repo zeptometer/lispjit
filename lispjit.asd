@@ -8,5 +8,5 @@
   :author "Yuito Murase"
   :license "MIT"
   :description "A poc lisp interpreter with just-in-time code generation"
-  :components ((:file "lispjit"))
+  :components ((:module "src" :components ((:file "lispjit"))))
   :in-order-to ((test-op (test-op lispjit-test))))
