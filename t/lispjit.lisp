@@ -22,6 +22,10 @@
   (evals-to 1 (if t 1 0))
   (evals-to 0 (if nil 1 0)))
 
+(test combined-expr
+  (evals-to 19 (+ (+ -10 11) (* 3 6)))
+  (evals-to 10 (+ 2 (if (>= 6 (+ 2 3)) (* 2 4) -199))))
+
 (test function
   (evals-to 1 ((fn (x) 1) 2))
   (evals-to 2 ((fn (x) x) 2))
@@ -29,6 +33,7 @@
   (evals-to 40 ((fn (f x) (f x)) (fn (x) (* x 2)) 20))
   (evals-to 40 (((fn (x) (fn (y) (+ x y))) 10) 30)))
 
-(test combined-expr
-  (evals-to 19 (+ (+ -10 11) (* 3 6)))
-  (evals-to 10 (+ 2 (if (>= 6 (+ 2 3)) (* 2 4) -199))))
+(test recursive-function
+  (evals-to 1 ((recfn (self x) 1) 2))
+  ;; fibonacci
+  (evals-to 13 ((recfn (self x) (if (not (>= x 2)) 1 (+ (self (+ x -1)) (self (+ x -2))))) 6)))
